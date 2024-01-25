@@ -8,4 +8,14 @@
 
 App
 ===NavBar
+-------- Logo
+-------- Search
+-------- NumResults
 ===Main
+-------- ListBox
+============ MovieList
+---------------- Movie
+-------- WatchedBox
+============ WatchedSummary
+============ WatchedMoviesList
+---------------- WatchedMovie
