@@ -11,8 +11,9 @@ import { Search, NumResults } from "./components/NavBarComponents";
 import Loader from "./components/MainComponents/Loader";
 import ErrorMsg from "./components/MainComponents/ErrorMsg";
 import SelectedMovie from "./components/MainComponents/SelectedMovie";
+import { API_KEY } from "./utils/constants";
 // const OMDB_API = `http://www.omdbapi.com/?apikey=[yourkey]&`;
-const API_KEY = "d86a0de9";
+
 // const term = "india";
 
 export default function App() {

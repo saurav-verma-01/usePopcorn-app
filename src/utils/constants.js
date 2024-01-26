@@ -46,3 +46,5 @@ export const tempWatchedData = [
 
 export const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
+
+export const API_KEY = "d86a0de9";
