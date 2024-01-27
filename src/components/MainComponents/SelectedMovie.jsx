@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
 import { API_KEY } from "../../utils/constants";
+import Loader from "./Loader";
+import StarRating from "../../StarRating";
 
-const SelectedMovie = ({ selectedID, onCloseMovie, onAddWatched }) => {
+const SelectedMovie = ({ selectedID, onCloseMovie, onAddWatched, watched }) => {
   const [movie, setMovie] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [userRating, setUserRating] = useState("");
+
+  const isWatched = watched.map((movie) => movie.imdbID).includes(selectedID);
+  const watchedUserRating = watched.find(
+    (movie) => movie.imdbID === selectedID
+  )?.userRating;
 
   const {
     Title: title,
@@ -24,12 +33,14 @@ const SelectedMovie = ({ selectedID, onCloseMovie, onAddWatched }) => {
   }, []);
 
   const getMovieDetails = async () => {
+    setIsLoading(true);
     const res = await fetch(
       `http://www.omdbapi.com/?apikey=${API_KEY}&i=${selectedID}`
     );
     const data = await res.json();
     console.log(data);
     setMovie(data);
+    setIsLoading(false);
   };
 
   const handleAdd = () => {
