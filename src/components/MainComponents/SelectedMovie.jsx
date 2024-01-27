@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { API_KEY } from "../../utils/constants";
 
-const SelectedMovie = ({ selectedID, onCloseMovie }) => {
+const SelectedMovie = ({ selectedID, onCloseMovie, onAddWatched }) => {
   const [movie, setMovie] = useState({});
 
   const {
@@ -22,6 +22,7 @@ const SelectedMovie = ({ selectedID, onCloseMovie }) => {
   useEffect(() => {
     getMovieDetails();
   }, []);
+
   const getMovieDetails = async () => {
     const res = await fetch(
       `http://www.omdbapi.com/?apikey=${API_KEY}&i=${selectedID}`
@@ -30,6 +31,20 @@ const SelectedMovie = ({ selectedID, onCloseMovie }) => {
     console.log(data);
     setMovie(data);
   };
+
+  const handleAdd = () => {
+    const newWatchedMovie = {
+      imdbID: selectedID,
+      title,
+      year,
+      poster,
+      imdbRating: Number(imdbRating),
+      runtime: Number(runtime.split(" ".at(0))),
+    };
+    onAddWatched(newWatchedMovie);
+    onCloseMovie();
+  };
+
   return (
     <div className="details">
       {isLoading ? (

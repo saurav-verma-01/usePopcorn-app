@@ -19,3 +19,13 @@ App
 ============ WatchedSummary
 ============ WatchedMoviesList
 ---------------- WatchedMovie
+
+## Todomake the App Working
+
+## Change the title on every movie selected, Using useEffect
+
+## Cleaning Up the useEffect Hook
+
+## Race Condition
+
+## Abort Controller
