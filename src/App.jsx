@@ -19,7 +19,7 @@ import { API_KEY } from "./utils/constants";
 export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
-  const [query, setQuery] = useState("Force");
+  const [query, setQuery] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -43,41 +43,50 @@ export default function App() {
   }
 
   useEffect(() => {
+    const controller = new AbortController();
+
+    const getMoviesData = async () => {
+      if (query.length < 3) {
+        setError(false);
+        setLoading(false);
+        setMovies([]);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        setError("");
+        const res = await fetch(
+          `http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`,
+          { signal: controller.signal }
+        );
+
+        // console.log(res);
+        if (!res.ok)
+          throw new Error("Something Went Wrong, Unable to Fetch Movies");
+
+        const data = await res.json();
+
+        if (data.Response === "False")
+          throw new Error("Movie Not Found with the given query");
+        // console.log(data);
+        setMovies(data.Search);
+      } catch (err) {
+        // console.error(err.message);
+        if (err.name !== "AbortError") {
+          setError(err.message);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
     getMoviesData();
+
+    return () => {
+      controller.abort();
+    };
   }, [query]);
-
-  const getMoviesData = async () => {
-    if (query.length < 3) {
-      setError(false);
-      setLoading(false);
-      setMovies([]);
-      return;
-    }
-
-    try {
-      setLoading(true);
-      setError("");
-      const res = await fetch(
-        `http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`
-      );
-
-      // console.log(res);
-      if (!res.ok)
-        throw new Error("Something Went Wrong, Unable to Fetch Movies");
-
-      const data = await res.json();
-
-      if (data.Response === "False")
-        throw new Error("Movie Not Found with the given query");
-      // console.log(data);
-      setMovies(data.Search);
-    } catch (err) {
-      // console.error(err.message);
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <>

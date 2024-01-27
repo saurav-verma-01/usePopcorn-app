@@ -43,6 +43,21 @@ const SelectedMovie = ({ selectedID, onCloseMovie, onAddWatched, watched }) => {
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    const callback = (e) => {
+      if (e.code === "Escape") {
+        onCloseMovie();
+        console.log("Closing by Esc");
+      }
+    };
+
+    document.addEventListener("keydown", callback);
+
+    return function () {
+      document.removeEventListener("keydown", callback);
+    };
+  }, [onCloseMovie]);
+
   const handleAdd = () => {
     const newWatchedMovie = {
       imdbID: selectedID,
