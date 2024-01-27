@@ -1,0 +1,33 @@
+.app {
+  font-family: sans-serif;
+  text-align: center;
+  background-color: tomato;
+  padding: 4rem;
+}
+.input-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.app input {
+  padding: 0.5rem 2rem;
+  border-radius: 0.5rem;
+  border: none;
+}
+.app select {
+  padding: 0.4rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.output {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 30rem;
+  background-color: rgb(101, 18, 4);
+  padding: 0.8rem;
+  color: rgb(236, 195, 188);
+  font-size: 2rem;
+}
