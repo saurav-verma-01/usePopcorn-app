@@ -9,7 +9,6 @@ import App from "./App-v2.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* <CurrencyConverter /> */}
     <App />
   </React.StrictMode>
 );
